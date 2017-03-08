@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding/Client.py=utf-8
+encoding/HttpMD5Util.py=utf-8
+encoding/OkcoinFutureAPI.py=utf-8
+encoding/OkcoinSpotAPI.py=utf-8
