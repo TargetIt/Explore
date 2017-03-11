@@ -6,11 +6,10 @@ Created on Fri Mar 10 23:19:38 2017
 """
 # In[ ]:
 
-
 from okcoinApi import Client as okp
 from hubiApi import HuobiMain as hbp
 # PTrading
-
+import pTrading as pts
 
 # In[ ]:
 

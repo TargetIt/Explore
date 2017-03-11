@@ -17,7 +17,7 @@ okcoinSpot = OKCoinSpot(okcoinRESTURL,apikey,secretkey)
 #期货API
 okcoinFuture = OKCoinFuture(okcoinRESTURL,apikey,secretkey)
 
-if __name__ == "__main__":
+def test_ok():
     print (u' 现货行情 ')
     print (okcoinSpot.ticker('btc_cny'))
     
@@ -89,4 +89,8 @@ if __name__ == "__main__":
     
     #print (u'期货逐仓持仓信息')
     #print (okcoinFuture.future_position_4fix('btc_cny','this_week',1))
+
+if __name__ == "__main__":
+    test_ok()
+
        
