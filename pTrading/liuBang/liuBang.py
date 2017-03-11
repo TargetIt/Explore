@@ -28,7 +28,7 @@ class my_account(object):
 # In[ ]:
 
 def Initialization():
-    # create account
+    # create mirror account
     global ok_account
     global hb_account
     ok_account = my_account(0,0,0.003)
@@ -39,7 +39,14 @@ def Initialization():
     # test hbcoin platform
     print ("获取账号详情")
     print (hbp.HuobiService.getAccountInfo(hbp.ACCOUNT_INFO))
-
+    # update ok platform mirror repository
+    
+    # update hb platform mirror repository
+    
+    # get enough history data of ok platform
+    
+    # get enough history data of hb platform
+    
 if __name__ == "__main__":
     """This is main"""
     Initialization()
@@ -48,7 +55,8 @@ if __name__ == "__main__":
         print(hb_account.Fee)
     #while True:
         #pass
-        # Get data，xiaoHe
+        # Get data, xiaoHe
         # Update repository, xiaoHe
         # Cal oppotunity, zhangLiang
         # Excute the decision, hanXin
+        
