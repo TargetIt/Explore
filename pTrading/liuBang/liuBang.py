@@ -4,15 +4,11 @@ Created on Fri Mar 10 23:19:38 2017
 
 @author: Hpeng
 """
+# In[ ]:
 
-## hubi
-#from Util import *
-#import HuobiService
 
-## ok
-#from OkcoinSpotAPI import OKCoinSpot
-#from OkcoinFutureAPI import OKCoinFuture
-
+from okcoinApi import Client as okp
+from hubiApi import HuobiMain as hbp
 # PTrading
 
 
@@ -33,10 +29,17 @@ class my_account(object):
 # In[ ]:
 
 def Initialization():
+    # create account
     global ok_account
     global hb_account
     ok_account = my_account(0,0,0.003)
     hb_account = my_account(0,0,0.003)
+    # test okcoin platform
+    print (u' 现货行情 ')
+    print (okp.okcoinSpot.ticker('btc_cny'))
+    # test hbcoin platform
+    print ("获取账号详情")
+    print (hbp.HuobiService.getAccountInfo(hbp.ACCOUNT_INFO))
 
 if __name__ == "__main__":
     """This is main"""
