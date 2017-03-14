@@ -3548,3 +3548,5 @@
 2017-03-11 17:10:48,362 - pTrading.py:72 - tst - buy_decision: p1:48.524243, p2:79.206208, mu:-30.489663, sigma:0.715448, z_score:-0.268785, margin1:15.565647, margin2:15.206364
 2017-03-11 17:10:48,362 - pTrading.py:72 - tst - buy_decision: p1:48.524243, p2:79.206208, mu:-30.489663, sigma:0.715448, z_score:-0.268785, margin1:15.565647, margin2:15.206364
 2017-03-11 17:10:48,362 - pTrading.py:72 - tst - buy_decision: p1:48.524243, p2:79.206208, mu:-30.489663, sigma:0.715448, z_score:-0.268785, margin1:15.565647, margin2:15.206364
+2017-03-14 19:33:41,885 - pTrading.py:35 - tst - first info message
+2017-03-14 19:33:41,895 - pTrading.py:36 - tst - first debug message
