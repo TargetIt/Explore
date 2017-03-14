@@ -6,8 +6,8 @@ Created on Fri Mar 10 23:19:38 2017
 """
 # In[ ]:
 
-#from okcoinApi import Client as okp
-import hubiApi.HuobiMain as hbp
+from okcoinApi import Client as okp
+import huobiApi.HuobiMain as hbp
 # PTrading
 import pTrading as pts
 
@@ -38,7 +38,7 @@ def Initialization():
     print (okp.okcoinSpot.ticker('btc_cny'))
     # test hbcoin platform
     print ("获取账号详情")
-#    print (hbp.HuobiService.getAccountInfo(hbp.ACCOUNT_INFO))
+    print (hbp.HuobiService.getAccountInfo(hbp.ACCOUNT_INFO))
     # update ok platform mirror repository
     
     # update hb platform mirror repository
@@ -46,7 +46,7 @@ def Initialization():
     # get enough history data of ok platform
     
     # get enough history data of hb platform
-#    hbp.xiaoheGet()
+    huobiData = hbp.xiaoheGet()
 if __name__ == "__main__":
     """This is main"""
     Initialization()
