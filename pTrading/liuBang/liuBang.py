@@ -15,15 +15,22 @@ import pTrading as pts
 
 class my_account(object):
     """This is my_account"""
-    def __init__(self, RMB, BitCoin, Fee):
-        self.RMB = RMB
-        self.BitCoin = BitCoin
-        self.Fee = Fee
+    def __init__(self, cny_fr, btc_fr, cny_fz, btc_fz, rate):
+        self.cny_fr = cny_fr
+        self.btc_fr = btc_fr
+        self.cny_fz = cny_fz
+        self.btc_fz = btc_fz
+        self.rate = rate
         self.state = "even"
         self.BuyPrice = 8000
-    def order_taget(self, RMB, BitCoin):
-        self.RMB += RMB
-        self.BitCoin += BitCoin
+    def order_taget(self, cny, btc):
+        self.cny_fr += cny
+        self.btc_fr += btc
+    def sync(self, cny_fr, btc_fr, cny_fz, btc_fz):
+        self.cny_fr = cny_fr
+        self.btc_fr = btc_fr
+        self.cny_fz = cny_fz
+        self.btc_fz = btc_fz
 
 # In[ ]:
 
@@ -31,8 +38,8 @@ def Initialization():
     # create mirror account
     global ok_account
     global hb_account
-    ok_account = my_account(0,0,0.003)
-    hb_account = my_account(0,0,0.003)
+    ok_account = my_account(0,0,0,0,0.003)
+    hb_account = my_account(0,0,0,0,0.003)
     # test okcoin platform
     print (u' 现货行情 ')
     print (okp.okcoinSpot.ticker('btc_cny'))
@@ -51,8 +58,8 @@ if __name__ == "__main__":
     """This is main"""
     Initialization()
     if True:
-        print(ok_account.Fee)
-        print(hb_account.Fee)
+        print(ok_account.rate)
+        print(hb_account.rate)
     #while True:
         #pass
         # Get data, xiaoHe

@@ -4,7 +4,7 @@
 #客户端调用，用于查看API返回结果
 
 from okcoinApi.OkcoinSpotAPI import OKCoinSpot
-
+import json
 #初始化apikey，secretkey,url
 apikey = 'c6b8026e-a2ce-4a7b-8a3d-ca3d2c203dc8'
 secretkey = '44143FFE0E18B62DBA68134F1E425905'
@@ -13,16 +13,29 @@ okcoinRESTURL = 'www.okcoin.cn'   #请求注意：国内账号需要 修改为 w
 #现货API
 okcoinSpot = OKCoinSpot(okcoinRESTURL,apikey,secretkey)
 
+def xiaoheSync():
+    userinfo_str = okcoinSpot.userinfo()
+    userinfo = json.loads(userinfo_str)
+    return (
+    float(userinfo['info']['funds']['free']['cny']),
+    float(userinfo['info']['funds']['free']['btc']),
+    float(userinfo['info']['funds']['freezed']['cny']),
+    float(userinfo['info']['funds']['freezed']['btc'])
+    )
+def xiaoheGet():
+    pass
 def test_ok():
     print (u' 现货行情 ')
     print (okcoinSpot.ticker('btc_cny'))
     
-    # print (u' 现货深度 ')
-    # print (okcoinSpot.depth('btc_cny'))
+    print (u' 现货深度 ')
+    print (okcoinSpot.depth('btc_cny'))
     
-    #print (u' 现货历史交易信息 ')
-    #print (okcoinSpot.trades())
+    print (u' 现货历史交易信息 ')
+    print (okcoinSpot.trades())
     
+    print (u' 获取K线交易数据 ')
+    print (okcoinSpot.kline('btc_cny','3min', 5))
     print (u' 用户现货账户信息 ')
     print (okcoinSpot.userinfo())
      
@@ -87,6 +100,7 @@ def test_ok():
     #print (okcoinFuture.future_position_4fix('btc_cny','this_week',1))
 
 if __name__ == "__main__":
-    test_ok()
+    #test_ok()
+    print (xiaoheSync())
 
        
