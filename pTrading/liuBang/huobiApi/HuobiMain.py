@@ -28,6 +28,9 @@ def xiaoheGet():
         dataDic[kPoint[0]] = kPoint[4]
     return dataDic
 
+def getHuobiAcountInfo():
+    strData = HuobiService.getAccountInfo(ACCOUNT_INFO);
+
 def test_huobi():
 #    print ("获取实时行情数据")
 #    print(HuobiService.getRealtimeMarket())

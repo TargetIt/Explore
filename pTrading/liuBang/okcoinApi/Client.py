@@ -23,11 +23,11 @@ def test_ok():
     #print (u' 现货历史交易信息 ')
     #print (okcoinSpot.trades())
     
-    print (u' 用户现货账户信息 ')
-    print (okcoinSpot.userinfo())
-     
-    print (u' 现货下单 ')
-    print (okcoinSpot.trade('btc_cny','buy','0.1','0.2'))
+#    print (u' 用户现货账户信息 ')
+#    print (okcoinSpot.userinfo())
+#     
+#    print (u' 现货下单 ')
+#    print (okcoinSpot.trade('btc_cny','buy','0.1','0.2'))
     
     #print (u' 现货批量下单 ')
     #print (okcoinSpot.batchTrade('btc_cny','buy','[{price:0.1,amount:0.2},{price:0.1,amount:0.2}]'))
@@ -41,8 +41,8 @@ def test_ok():
     #print (u' 现货批量订单信息查询 ')
     #print (okcoinSpot.ordersinfo('btc_cny','18243800,18243801,18243644','0'))
     
-    print (u' 现货历史订单信息查询 ')
-    print (okcoinSpot.orderHistory('btc_cny','0','1','2'))
+#    print (u' 现货历史订单信息查询 ')
+#    print (okcoinSpot.orderHistory('btc_cny','0','1','2'))
     
     #print (u' 期货行情信息')
     #print (okcoinFuture.future_ticker('btc_cny','this_week'))
