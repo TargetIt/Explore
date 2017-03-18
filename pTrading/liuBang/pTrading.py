@@ -55,7 +55,7 @@ def get_signal(z_score):
             return('side2')
         
 # In[ ]:
-def buy_decision(series1, series2, fee1=0.003, fee2=0.003, min_profit=0.1):
+def decision(series1, series2, fee1=0.003, fee2=0.003, min_profit=0.1):
     series = series1 - series2
     mu = series.mean()
     sigma = np.std(series)
@@ -69,7 +69,7 @@ def buy_decision(series1, series2, fee1=0.003, fee2=0.003, min_profit=0.1):
     #debug usage
     dbg_templet = "p1:%f, p2:%f, mu:%f, sigma:%f, z_score:%f, margin1:%f, margin2:%f"
     dbg_tuple = (series1.iloc[series1.shape[0]-1],series2.iloc[series2.shape[0]-1], mu, sigma, z_score, margin1, margin2)
-    logger.debug(("buy_decision: " + dbg_templet)%dbg_tuple)
+    logger.debug(("decision: " + dbg_templet)%dbg_tuple)
     #log
     if z_score > 1 and margin2 > 0:
         #log
@@ -89,15 +89,31 @@ def crisis_detection():
     pass
 
 # In[ ]:
-def zhangliang(p1_account, p2_account, p1_data, p2_data):
+## -----------------------------------------------------------
+#
+# input format:
+#
+# return format:
+#   ((p1_type, p1_price, p1_amount),(p2_type, p2_price, p2_amount))
+#   type: 'buy', 'sell', 'buy_market', 'sell_market'
+# QA:
+#   1 what's the unit of price? 
+## -----------------------------------------------------------
+def zhangliang(p1_account, p2_account, p1_data, p2_data):   
+    #crisis detection
+    
     #check p1 and p2 account
-    
-    #calculate buy profit
-    
-    #calculate sell profit
-    
+        
+    #calculate opportinuty
+    result = decision(p1_account, p2_account, 0.002, 0.002, 0.1)
     # return the result
-    return ('platform1', ('buy', 0.01, 0.2))
+    if result is 'buy1':    #buy platform1, sell platform2
+        return (('buy', 0.01, 0.2), ('sell', 0.01, 0.2))
+    elif result is 'buy2':  #buy platform2, sell platform1
+        return (('sell', 0.01, 0.2), ('buy', 0.01, 0.2))
+    else:
+        return (None, None)
+
 # In[ ]:
 ## -------------------------------------
 ## output states: 
@@ -150,13 +166,14 @@ if __name__ == "__main__":
     #print mean(Y-X)
     print ((Y-X).mean())
             
-    a=buy_decision(X,Y)
+    a=decision(X,Y)
     print(a)
         
     #print (Y-X)[-1]
     for i in range(1,100):
         X_slice = X.iloc[(i-1)*5:i*5]
         Y_slice = Y.iloc[(i-1)*5:i*5]
-        a=buy_decision(X_slice,Y_slice,0.003,0.003,0.001)
-        #print (a)    
+        a=decision(X_slice,Y_slice,0.003,0.003,0.001)
+        #print (a)  
+    print (X)
 

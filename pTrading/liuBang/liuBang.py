@@ -68,12 +68,9 @@ if __name__ == "__main__":
         # Update repository, xiaoHe
         ok_account.xiaoheSync(*okp.xiaoheSync())
         # Cal oppotunity, zhangLiang
-        platform, command = pts.zhangliang(ok_account, hb_account, ok_data, hb_data)
+        cmd1, cmd2 = pts.zhangliang(ok_account, hb_account, ok_data, hb_data)
         # Excute the decision, hanXin(tradeType, price, amount)
-        if platform is 'platform1':
-            okp.hanxin(*command)
-        elif platform is 'platform2':
-            hbp.hanxin(*command)
-        else:
-            pass
+        if not cmd1 and not cmd2:
+            okp.hanxin(*cmd1)
+            hbp.hanxin(*cmd2)
 

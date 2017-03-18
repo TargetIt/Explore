@@ -24,7 +24,9 @@ def xiaoheSync():
     )
     
 def xiaoheGet(smpPeriod, smpLen, smpSince=''):
-    pass
+    rsp = okcoinSpot.kline('btc_cny',smpPeriod, smpLen, smpSince)
+    rsp = [rsp[i][-2] for i in range(len(rsp))]
+    return rsp
 
 def hanxin(tradeType, price='',amount=''):
     rsp = okcoinSpot.trade('btc_cny', tradeType, price, amount)
@@ -112,10 +114,12 @@ def test_ok():
     #print (okcoinFuture.future_position_4fix('btc_cny','this_week',1))
 
 if __name__ == "__main__":
-    test_ok()
+    #test_ok()
     #print (xiaoheSync())
+    a=xiaoheGet('5min', 500)
+    print (a)
     #print (u' 获取K线交易数据 ')
-    #print (okcoinSpot.kline('btc_cny','3min', 5))
+    #print (okcoinSpot.kline('btc_cny','3min', 2))
     #print (u' 现货下单 ')
     #print (okcoinSpot.trade('btc_cny','buy','0.01','0.2'))
 #    print (u' 现货行情 ')
