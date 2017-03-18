@@ -87,6 +87,17 @@ def sell_decision():
 # In[ ]:
 def crisis_detection():
     pass
+
+# In[ ]:
+def zhangliang(p1_account, p2_account, p1_data, p2_data):
+    #check p1 and p2 account
+    
+    #calculate buy profit
+    
+    #calculate sell profit
+    
+    # return the result
+    return ('platform1', ('buy', 0.01, 0.2))
 # In[ ]:
 ## -------------------------------------
 ## output states: 

@@ -22,8 +22,18 @@ def xiaoheSync():
     float(userinfo['info']['funds']['freezed']['cny']),
     float(userinfo['info']['funds']['freezed']['btc'])
     )
-def xiaoheGet():
+    
+def xiaoheGet(smpPeriod, smpLen, smpSince=''):
     pass
+
+def hanxin(tradeType, price='',amount=''):
+    rsp = okcoinSpot.trade('btc_cny', tradeType, price, amount)
+    rsp = json.loads(rsp)
+    if rsp['result'] is "true":
+        return True
+    else:
+        return False
+
 def test_ok():
     print (u' 现货行情 ')
     print (okcoinSpot.ticker('btc_cny'))
@@ -101,6 +111,13 @@ def test_ok():
 
 if __name__ == "__main__":
     #test_ok()
-    print (xiaoheSync())
+    #print (xiaoheSync())
+    #print (u' 获取K线交易数据 ')
+    #print (okcoinSpot.kline('btc_cny','3min', 5))
+    #print (u' 现货下单 ')
+    #print (okcoinSpot.trade('btc_cny','buy','0.01','0.2'))
+    
+    print (u' 现货订单信息查询 ')
+    print (okcoinSpot.orderinfo('btc_cny','8502392117'))
 
        
