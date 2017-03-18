@@ -43,7 +43,7 @@ class OKCoinSpot:
         }
         if smpStart:
             params['since'] = smpStart
-        params_str = 'symbol=%(symbol)s,type=%(type)s,size=%(size)d' % params
+        params_str = 'symbol=%(symbol)s&type=%(type)s&size=%(size)d' % params
         return httpGet(self.__url,KLINE_RESOURCE,params_str)
     #获取用户现货账户信息
     def userinfo(self):

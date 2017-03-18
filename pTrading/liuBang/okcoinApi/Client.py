@@ -35,22 +35,24 @@ def hanxin(tradeType, price='',amount=''):
         return False
 
 def test_ok():
+    
     print (u' 现货行情 ')
     print (okcoinSpot.ticker('btc_cny'))
-    
-    print (u' 现货深度 ')
-    print (okcoinSpot.depth('btc_cny'))
+#    
+#    print (u' 现货深度 ')
+#    print (okcoinSpot.depth('btc_cny'))
     
     print (u' 现货历史交易信息 ')
     print (okcoinSpot.trades())
     
     print (u' 获取K线交易数据 ')
     print (okcoinSpot.kline('btc_cny','3min', 5))
-    print (u' 用户现货账户信息 ')
-    print (okcoinSpot.userinfo())
-     
-    print (u' 现货下单 ')
-    print (okcoinSpot.trade('btc_cny','buy','0.1','0.2'))
+    
+#    print (u' 用户现货账户信息 ')
+#    print (okcoinSpot.userinfo())
+#     
+#    print (u' 现货下单 ')
+#    print (okcoinSpot.trade('btc_cny','buy','0.1','0.2'))
     
     #print (u' 现货批量下单 ')
     #print (okcoinSpot.batchTrade('btc_cny','buy','[{price:0.1,amount:0.2},{price:0.1,amount:0.2}]'))
@@ -110,14 +112,16 @@ def test_ok():
     #print (okcoinFuture.future_position_4fix('btc_cny','this_week',1))
 
 if __name__ == "__main__":
-    #test_ok()
+    test_ok()
     #print (xiaoheSync())
     #print (u' 获取K线交易数据 ')
     #print (okcoinSpot.kline('btc_cny','3min', 5))
     #print (u' 现货下单 ')
     #print (okcoinSpot.trade('btc_cny','buy','0.01','0.2'))
+#    print (u' 现货行情 ')
+#    print (okcoinSpot.ticker('btc_cny'))
     
-    print (u' 现货订单信息查询 ')
-    print (okcoinSpot.orderinfo('btc_cny','8502392117'))
+#    print (u' 现货订单信息查询 ')
+#    print (okcoinSpot.orderinfo('btc_cny','8502392117'))
 
        

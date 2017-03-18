@@ -7,6 +7,7 @@ import urllib
 import json
 import hashlib
 import time
+import zlib
 
 def buildMySign(params,secretKey):
     sign = ''
@@ -19,7 +20,16 @@ def httpGet(url,resource,params=''):
     conn = http.client.HTTPSConnection(url, timeout=10)
     conn.request("GET",resource + '?' + params)
     response = conn.getresponse()
-    data = response.read().decode('utf-8')
+    found = False
+    for headerItem in response.headers._headers:
+        if (headerItem[0] == "Content-Encoding"):
+            if(headerItem[1] == "gzip"):
+                found = True
+                break
+    if(found == True):    
+        data=zlib.decompress(response.read(), 16+zlib.MAX_WBITS).decode('utf-8')
+    else:
+        data = response.read().decode('utf-8')    
     return json.loads(data)
 
 def httpPost(url,resource,params):
