@@ -26,44 +26,54 @@ class my_account(object):
     def order_taget(self, cny, btc):
         self.cny_fr += cny
         self.btc_fr += btc
-    def sync(self, cny_fr, btc_fr, cny_fz, btc_fz):
+    def xiaoheSync(self, cny_fr, btc_fr, cny_fz, btc_fz):
         self.cny_fr = cny_fr
         self.btc_fr = btc_fr
         self.cny_fz = cny_fz
         self.btc_fz = btc_fz
+    def display(self):
+        print (self.cny_fr, self.btc_fr, self.cny_fz, self.btc_fz)
 
 # In[ ]:
 
 def Initialization():
-    # create mirror account
     global ok_account
     global hb_account
+    global ok_data
+    global hb_data
+    # create mirror account
     ok_account = my_account(0,0,0,0,0.003)
     hb_account = my_account(0,0,0,0,0.003)
     # test okcoin platform
-    print (u' 现货行情 ')
-    print (okp.okcoinSpot.ticker('btc_cny'))
+
     # test hbcoin platform
-    print ("获取账号详情")
-    print (hbp.HuobiService.getAccountInfo(hbp.ACCOUNT_INFO))
+
     # update ok platform mirror repository
-    
+    ok_account.xiaoheSync(*okp.xiaoheSync())
     # update hb platform mirror repository
     
     # get enough history data of ok platform
-    
+    ok_data = okp.xiaoheGet('5min', 500)
     # get enough history data of hb platform
-    huobiData = hbp.xiaoheGet()
+    hb_data = hbp.xiaoheGet()
 if __name__ == "__main__":
     """This is main"""
     Initialization()
+    
     if True:
-        print(ok_account.rate)
-        print(hb_account.rate)
-    #while True:
         #pass
+        ok_account.display()
         # Get data, xiaoHe
+        ok_data = okp.xiaoheGet('5min', 500)
         # Update repository, xiaoHe
+        ok_account.xiaoheSync(*okp.xiaoheSync())
         # Cal oppotunity, zhangLiang
-        # Excute the decision, hanXin
-        
+        platform, command = pts.zhangliang(ok_account, hb_account, ok_data, hb_data)
+        # Excute the decision, hanXin(tradeType, price, amount)
+        if platform is 'platform1':
+            okp.hanxin(*command)
+        elif platform is 'platform2':
+            hbp.hanxin(*command)
+        else:
+            pass
+
