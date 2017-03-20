@@ -19,25 +19,48 @@ ORDER_ID_BY_TRADE_ID = "get_order_id_by_trade_id"
 SELL = "sell"
 SELL_MARKET = "sell_market"
 
-def xiaoheGet():
-    strData = HuobiService.getKLineData("015")
+def xiaoheGet(interval, length, untilTime):
+    strData = HuobiService.getKLineData(interval, length)
     jsonData = json.loads(strData)
-    dataDic = {}
+    dataArray = []
     for kPoint in jsonData:
         # 存储收盘价信息
-        dataDic[kPoint[0]] = kPoint[4]
-    return dataDic
+        dataArray.append(kPoint[4])
+    return dataArray
 
-def getHuobiAcountInfo():
-    strData = HuobiService.getAccountInfo(ACCOUNT_INFO);
+def xiaoheSync():
+    strData = HuobiService.getAccountInfo(ACCOUNT_INFO)
+#    print(strData)
+    jsonData = json.loads(strData)
+    return (jsonData['available_cny_display'],
+          jsonData['available_btc_display'],
+          jsonData['frozen_cny_display'],
+          jsonData['frozen_btc_display'])
+    
+def hanxin(tradeType, amount='', price=''):
+    response = None
+    if(tradeType == 'buy'):
+        if(price):
+            response = HuobiService.buy(1,price,amount,None,None,BUY)
+        else:
+            response = HuobiService.buyMarket(1,amount,None,None,BUY_MARKET)
+    else:
+        if(price):
+            response = HuobiService.sell(1,price,amount,None,None,SELL)
+        else:
+            response = HuobiService.sellMarket(1,amount,None,None,SELL_MARKET)
+    print(response)
+    return response
 
 def test_huobi():
+#    xiaoheGet()
+     xiaoheSync()
 #    print ("获取实时行情数据")
 #    print(HuobiService.getRealtimeMarket())
 #    print ("深度数据接口")
 #    print(HuobiService.getDepthData())
-    print ("分时行情数据接口（K线）")
-    print(HuobiService.getKLineData("015"))
+#    print ("分时行情数据接口（K线）")
+#    print(HuobiService.getKLineData("015"))
 #    print ("买卖盘实时成交数据")
 #    print(HuobiService.getRealtimeTradeData())
 #    print ("获取账号详情")

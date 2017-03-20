@@ -21,8 +21,8 @@ def getDepthData():
 '''
 分时行情数据接口（K线）
 '''
-def getKLineData(period):
-    res = Util.httpGetRequest(HUOBI_VIEW_API, "/btc_kline_" + period + "_json.js?length=50")
+def getKLineData(period, length):
+    res = Util.httpGetRequest(HUOBI_VIEW_API, "/btc_kline_" + period + "_json.js?length=" + str(length))
     return res
 
 '''

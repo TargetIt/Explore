@@ -14,26 +14,8 @@ import seaborn
 import statsmodels
 import matplotlib.pyplot as plt
 from statsmodels.tsa.stattools import coint
+import logger
 
-# In[3]:
-
-import logging  
-import logging.handlers  
-  
-LOG_FILE = 'tst.log'  
-  
-handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes = 1024*1024, backupCount = 5) # 实例化handler   
-fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'  
-  
-formatter = logging.Formatter(fmt)   # 实例化formatter  
-handler.setFormatter(formatter)      # 为handler添加formatter  
-  
-logger = logging.getLogger('tst')    # 获取名为tst的logger  
-logger.addHandler(handler)           # 为logger添加handler  
-logger.setLevel(logging.DEBUG)  
-  
-logger.info('first info message')  
-logger.debug('first debug message')  
 
 
 # In[ ]:
@@ -103,14 +85,19 @@ def zhangliang(p1_account, p2_account, p1_data, p2_data):
     #crisis detection
     
     #check p1 and p2 account
-        
+    logger.loggerAccount("ok account", p1_account)
+    logger.loggerAccount("huobi account", p2_account)
+    logger.loggerList("ok data", p1_data)    
+    logger.loggerList("huobi data", p2_data)
     #calculate opportinuty
-    result = decision(p1_account, p2_account, 0.002, 0.002, 0.1)
+    p1_serias = pd.Series(p1_data)
+    p2_serias = pd.Series(p2_data)
+    result = decision(p1_serias, p2_serias, 0.002, 0.002, 0.1)
     # return the result
     if result is 'buy1':    #buy platform1, sell platform2
-        return (('buy', 0.01, 0.2), ('sell', 0.01, 0.2))
+        return (('buy', 0.01, 7777), ('sell', 0.01, 7777))
     elif result is 'buy2':  #buy platform2, sell platform1
-        return (('sell', 0.01, 0.2), ('buy', 0.01, 0.2))
+        return (('sell', 0.01, 7777), ('buy', 0.01, 7777))
     else:
         return (None, None)
 

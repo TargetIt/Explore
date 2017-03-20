@@ -5,11 +5,13 @@ Created on Fri Mar 10 23:19:38 2017
 @author: Hpeng
 """
 # In[ ]:
-
+import time
 from okcoinApi import Client as okp
 import huobiApi.HuobiMain as hbp
 # PTrading
 import pTrading as pts
+import logger
+
 
 # In[ ]:
 
@@ -51,11 +53,12 @@ def Initialization():
     # update ok platform mirror repository
     ok_account.xiaoheSync(*okp.xiaoheSync())
     # update hb platform mirror repository
-    
+    hb_account.xiaoheSync(*hbp.xiaoheSync())
     # get enough history data of ok platform
-    ok_data = okp.xiaoheGet('5min', 500)
+    timeInt = time.time() * 1000
+    ok_data = okp.xiaoheGet('5min', 50, timeInt)
     # get enough history data of hb platform
-    hb_data = hbp.xiaoheGet()
+    hb_data = hbp.xiaoheGet('005',50, timeInt)
 if __name__ == "__main__":
     """This is main"""
     Initialization()
@@ -64,13 +67,20 @@ if __name__ == "__main__":
         #pass
         ok_account.display()
         # Get data, xiaoHe
-        ok_data = okp.xiaoheGet('5min', 500)
+        theTime = time.time() * 1000
+        ok_data = okp.xiaoheGet('5min', 50, theTime)
+        hb_data = hbp.xiaoheGet('005', 50, theTime)
         # Update repository, xiaoHe
         ok_account.xiaoheSync(*okp.xiaoheSync())
+        hb_account.xiaoheSync(*hbp.xiaoheSync())
         # Cal oppotunity, zhangLiang
         cmd1, cmd2 = pts.zhangliang(ok_account, hb_account, ok_data, hb_data)
         # Excute the decision, hanXin(tradeType, price, amount)
-        if not cmd1 and not cmd2:
-            okp.hanxin(*cmd1)
-            hbp.hanxin(*cmd2)
+        if cmd1 and cmd2:
+            okResult = okp.hanxin(*cmd1)
+            hbResult = hbp.hanxin(*cmd2)
+            logger.info(okResult)
+            logger.info(hbResult)
+        else:
+            logger.info('no buy or sell this time')
 

@@ -23,12 +23,13 @@ def xiaoheSync():
     float(userinfo['info']['funds']['freezed']['btc'])
     )
     
-def xiaoheGet(smpPeriod, smpLen, smpSince=''):
-    rsp = okcoinSpot.kline('btc_cny',smpPeriod, smpLen, smpSince)
+def xiaoheGet(smpPeriod, smpLen, smpUntil=''):
+    rsp = okcoinSpot.kline('btc_cny',smpPeriod, smpLen)
+    
     rsp = [rsp[i][-2] for i in range(len(rsp))]
     return rsp
 
-def hanxin(tradeType, price='',amount=''):
+def hanxin(tradeType, amount='', price=''):
     rsp = okcoinSpot.trade('btc_cny', tradeType, price, amount)
     rsp = json.loads(rsp)
     if rsp['result'] is "true":
