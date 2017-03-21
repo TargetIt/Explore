@@ -11,7 +11,7 @@ import huobiApi.HuobiMain as hbp
 # PTrading
 import pTrading as pts
 import logger
-
+import time
 
 # In[ ]:
 
@@ -63,7 +63,7 @@ if __name__ == "__main__":
     """This is main"""
     Initialization()
     
-    if True:
+    while True:
         #pass
         ok_account.display()
         # Get data, xiaoHe
@@ -83,4 +83,6 @@ if __name__ == "__main__":
             logger.info(hbResult)
         else:
             logger.info('no buy or sell this time')
+        
+        time.sleep(15)
 

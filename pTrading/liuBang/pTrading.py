@@ -121,11 +121,26 @@ def zhangliang(p1_account, p2_account, p1_data, p2_data):
     p1_serias = pd.Series(p1_data)
     p2_serias = pd.Series(p2_data)
     result = decision(p1_serias, p2_serias, 0.002, 0.002, 0.1)
+    #check if we have the ability to execute the transaction
+    if result is 'buy1':
+        if not (p1_account.cny_fr > 0.01 * p1_data[-1] ) :
+            logger.warn(("[P1.!!!] Too few cny. Actual: %d, Need: %d")%(p1_account.cny_fr, 0.01*p1_data[-1]))
+            result = None
+        if not (p2_account.btc_fr > 0.01):
+            logger.warn(("[P2.!!!] Too few btc. Actual: %d, Need: 0.01")%(p2_account.btc_fr))
+            result = None
+    elif result is 'buy2':
+        if not (p2_account.cny_fr > 0.01 * p2_data[-1] ) :
+            logger.warn(("[P1.!!!] Too few cny. Actual: %d, Need: %d")%(p2_account.cny_fr, 0.01*p2_data[-1]))
+            result = None
+        if not (p1_account.btc_fr > 0.01):
+            logger.warn(("[P2.!!!] Too few btc. Actual: %d, Need: 0.01")%(p1_account.btc_fr))
+            result = None
     # return the result
     if result is 'buy1':    #buy platform1, sell platform2
-        return (('buy', 0.01, 7777), ('sell', 0.01, 7777))
+        return (('buy', 0.01, p1_data[-1]), ('sell', 0.01, p2_data[-1]))
     elif result is 'buy2':  #buy platform2, sell platform1
-        return (('sell', 0.01, 7777), ('buy', 0.01, 7777))
+        return (('sell', 0.01, p1_data[-1]), ('buy', 0.01,  p2_data[-1]))
     else:
         return (None, None)
 

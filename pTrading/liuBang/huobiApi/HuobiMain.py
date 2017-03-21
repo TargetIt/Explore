@@ -32,10 +32,12 @@ def xiaoheSync():
     strData = HuobiService.getAccountInfo(ACCOUNT_INFO)
 #    print(strData)
     jsonData = json.loads(strData)
-    return (jsonData['available_cny_display'],
-          jsonData['available_btc_display'],
-          jsonData['frozen_cny_display'],
-          jsonData['frozen_btc_display'])
+    return (
+          float(jsonData['available_cny_display']),
+          float(jsonData['available_btc_display']),
+          float(jsonData['frozen_cny_display']),
+          float(jsonData['frozen_btc_display'])
+          )
     
 def hanxin(tradeType, amount='', price=''):
     response = None
@@ -85,6 +87,7 @@ def test_huobi():
 #    print (HuobiService.cancelOrder(1,68278313,CANCEL_ORDER))   
 if __name__ == "__main__":
     test_huobi()
+
 
 
 
