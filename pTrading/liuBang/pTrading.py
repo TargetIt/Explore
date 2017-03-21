@@ -63,6 +63,34 @@ def decision(series1, series2, fee1=0.003, fee2=0.003, min_profit=0.1):
         return "buy1"
 
 # In[ ]:
+def decision_hua(series1, series2, fee1=0.003, fee2=0.003, min_profit=0.1):
+    series = series1 - series2
+    mu = series.mean()
+    sigma = np.std(series)
+    cur_series  = series.iloc[series.shape[0]-1]
+    cur_series1 = series1.iloc[series1.shape[0]-1]
+    cur_series2 = series2.iloc[series2.shape[0]-1]
+    z_score = (cur_series-mu) / sigma
+    # pair trading可以同时计算买卖总共的收益情况 
+    # buy1 margin       
+    margin1 = cur_series2 - cur_series2 * fee2 - cur_series1(1+fee1) -min_profit
+    # buy2 margin
+    margin2 = cur_series1 - cur_series1 * fee1 - cur_series2(1+fee2) -min_profit
+    #debug usage
+    dbg_templet = "p1:%f, p2:%f, mu:%f, sigma:%f, z_score:%f, margin1:%f, margin2:%f"
+    dbg_tuple = (series1.iloc[series1.shape[0]-1],series2.iloc[series2.shape[0]-1], mu, sigma, z_score, margin1, margin2)
+    logger.debug(("decision: " + dbg_templet)%dbg_tuple)
+    #log
+    if z_score > 1 and margin2 > 0:
+        #log
+        logger.debug("=================BUY2")
+        return "buy2"
+    if z_score < -1 and margin1 > 0:
+        #log
+        logger.debug("=================BUY1")
+        return "buy1"
+    
+# In[ ]:
 def sell_decision():
     pass
 
