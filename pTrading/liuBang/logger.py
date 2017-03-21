@@ -5,7 +5,7 @@
 import logging  
 import logging.handlers  
   
-LOG_FILE = 'tst.log'  
+LOG_FILE = 'tst_new.log'  
   
 handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes = 1024*1024, backupCount = 5) # 实例化handler   
 fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'  
@@ -13,7 +13,7 @@ fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'
 formatter = logging.Formatter(fmt)   # 实例化formatter  
 handler.setFormatter(formatter)      # 为handler添加formatter  
   
-logger = logging.getLogger('tst')    # 获取名为tst的logger  
+logger = logging.getLogger('tst_new')    # 获取名为tst的logger  
          # 为logger添加handler  
 logger.setLevel(logging.DEBUG)  
 
@@ -24,15 +24,16 @@ logger.setLevel(logging.DEBUG)
 #formatter = logging.Formatter('%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s')
 #streamhandler.setFormatter(formatter)
 
-
+if not len(logger.handlers):
+    logger.addHandler(handler)
 def info(content):
-    logger.addHandler(handler)  
+    #logger.addHandler(handler)  
     logger.info(content)
-    logger.removeHandler(handler)
+    #logger.removeHandler(handler)
 def debug(content):
-    logger.removeHandler(handler)
+    #logger.removeHandler(handler)
     logger.debug(content)
-    logger.removeHandler(handler)
+    #logger.removeHandler(handler)
 def error(content):    
     logger.error(content)
 def critical(content):   
