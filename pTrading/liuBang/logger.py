@@ -4,8 +4,10 @@
 
 import logging  
 import logging.handlers  
-  
-LOG_FILE = 'tst_new.log'  
+import time
+
+dateTime = time.time()  
+LOG_FILE = 'logDir\\log' + time.strftime('%Y-%m-%d',time.localtime(time.time())) + '.log'  
   
 handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes = 1024*1024, backupCount = 5) # 实例化handler   
 fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'  
