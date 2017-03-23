@@ -62,10 +62,12 @@ def Initialization():
 if __name__ == "__main__":
     """This is main"""
     Initialization()
-    
-    while True:
+    runCount = 0
+    while runCount < 4:
+        runCount+=1
         #pass
-        ok_account.display()
+#        ok_account.display()
+        print('the ' + str(runCount) + ' run!')
         # Get data, xiaoHe
         theTime = time.time() * 1000
         ok_data = okp.xiaoheGet('5min', 50, theTime)

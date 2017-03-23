@@ -3,12 +3,14 @@ import hashlib
 import time
 import urllib
 import urllib.parse  
-import urllib.request  
+import urllib.request 
+
+import keyInfo 
 
 
 #在此输入您的Key
-ACCESS_KEY = "6649332d-305417cb-c2f59009-03666"
-SECRET_KEY = "e1b35369-19a15e4b-bae5179e-fbaf1"
+ACCESS_KEY = keyInfo.huobiAccessKey
+SECRET_KEY = keyInfo.huobiSecretKey
 HUOBI_SERVICE_API="https://api.huobi.com/apiv3"
 
 

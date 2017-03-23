@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 # encoding: utf-8
 #客户端调用，用于查看API返回结果
+import json
 
 from okcoinApi.OkcoinSpotAPI import OKCoinSpot
-import json
+import keyInfo as keyInfo
 #初始化apikey，secretkey,url
-apikey = 'c6b8026e-a2ce-4a7b-8a3d-ca3d2c203dc8'
-secretkey = '44143FFE0E18B62DBA68134F1E425905'
+apikey = keyInfo.okCoinApiKey
+secretkey = keyInfo.okCoinSecretKey
 okcoinRESTURL = 'www.okcoin.cn'   #请求注意：国内账号需要 修改为 www.okcoin.cn  
 
 #现货API

@@ -51,7 +51,7 @@ def hanxin(tradeType, amount='', price=''):
             response = HuobiService.sell(1,price,amount,None,None,SELL)
         else:
             response = HuobiService.sellMarket(1,amount,None,None,SELL_MARKET)
-    print(response)
+#    print(response)
     return response
 
 def test_huobi():
