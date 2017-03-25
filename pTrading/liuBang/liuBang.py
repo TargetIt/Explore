@@ -56,9 +56,9 @@ def Initialization():
     hb_account.xiaoheSync(*hbp.xiaoheSync())
     # get enough history data of ok platform
     timeInt = time.time() * 1000
-    ok_data = okp.xiaoheGet('5min', 50, timeInt)
+    ok_data = okp.xiaoheGet('1min', 50, timeInt)
     # get enough history data of hb platform
-    hb_data = hbp.xiaoheGet('005',50, timeInt)
+    hb_data = hbp.xiaoheGet('001',50, timeInt)
 
 def run_test():
     """This is test"""
@@ -72,8 +72,8 @@ def run_test():
 #       ok_account.display()
         # Get data, xiaoHe
         theTime = time.time() * 1000
-        ok_data = okp.xiaoheGet('5min', 50, theTime)
-        hb_data = hbp.xiaoheGet('005', 50, theTime)
+        ok_data = okp.xiaoheGet('5min', 10, theTime)
+        hb_data = hbp.xiaoheGet('005', 10, theTime)
         # Update repository, xiaoHe
         #ok_account.xiaoheSync(*okp.xiaoheSync())
         #hb_account.xiaoheSync(*hbp.xiaoheSync())
@@ -99,12 +99,11 @@ def run_test():
             logger.info('>>>>>>>>>>>>>> no buy or sell this time <<<<<<<<<<<<<<<<')
         
         time.sleep(15)
-if __name__ == "__main__":
-    """This is main"""
-    run_test()
+
+def run_liuBang():
     Initialization()
     runCount = 0
-    while runCount < 4:
+    while True:
         runCount+=1
         #pass
 #        ok_account.display()
@@ -121,12 +120,20 @@ if __name__ == "__main__":
         # Excute the decision, hanXin(tradeType, price, amount)
         if cmd1 and cmd2:
             pass
-            #okResult = okp.hanxin(*cmd1)
-            #hbResult = hbp.hanxin(*cmd2)
-            #logger.info(okResult)
-            #logger.info(hbResult)
+            okResult = okp.hanxin(*cmd1)
+            hbResult = hbp.hanxin(*cmd2)
+            logger.info(okResult)
+            logger.info(hbResult)
         else:
-            logger.info('no buy or sell this time')
+            logger.info('>>>>>>>>>>>>>> no buy or sell this time <<<<<<<<<<<<<<<<')
         
-        time.sleep(15)
+        time.sleep(15)    
+if __name__ == "__main__":
+    """This is main"""
+    try:
+        run_test()
+        #run_liuBang()
+    except:
+        print("There is an exception")
+        logger.info('There is an exception')
 
