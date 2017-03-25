@@ -59,8 +59,49 @@ def Initialization():
     ok_data = okp.xiaoheGet('5min', 50, timeInt)
     # get enough history data of hb platform
     hb_data = hbp.xiaoheGet('005',50, timeInt)
+
+def run_test():
+    """This is test"""
+    Initialization()
+    ok_account.cny_fr = 800
+    ok_account.btc_fr = 0.1
+    hb_account.cny_fr = 800
+    hb_account.btc_fr = 0.1
+    while True:
+        #pass
+#       ok_account.display()
+        # Get data, xiaoHe
+        theTime = time.time() * 1000
+        ok_data = okp.xiaoheGet('5min', 50, theTime)
+        hb_data = hbp.xiaoheGet('005', 50, theTime)
+        # Update repository, xiaoHe
+        #ok_account.xiaoheSync(*okp.xiaoheSync())
+        #hb_account.xiaoheSync(*hbp.xiaoheSync())
+        # Cal oppotunity, zhangLiang
+        cmd1, cmd2 = pts.zhangliang(ok_account, hb_account, ok_data, hb_data)
+        # Excute the decision, hanXin(tradeType, price, amount)
+        if cmd1 and cmd2:
+            #okResult = okp.hanxin(*cmd1)
+            #hbResult = hbp.hanxin(*cmd2)
+            #logger.info(okResult)
+            #logger.info(hbResult)
+            if cmd1[0] is 'buy' and cmd2[0] is 'sell':
+                ok_account.cny_fr -= cmd1[1]*cmd1[2]
+                ok_account.btc_fr += cmd1[1]
+                hb_account.cny_fr += cmd1[1]*cmd1[2]
+                hb_account.btc_fr -= cmd1[1]
+            elif cmd1[0] is 'sell' and cmd2[0] is 'buy':
+                ok_account.cny_fr += cmd1[1]*cmd1[2]
+                ok_account.btc_fr -= cmd1[1]
+                hb_account.cny_fr -= cmd1[1]*cmd1[2]
+                hb_account.btc_fr += cmd1[1]      
+        else:
+            logger.info('>>>>>>>>>>>>>> no buy or sell this time <<<<<<<<<<<<<<<<')
+        
+        time.sleep(15)
 if __name__ == "__main__":
     """This is main"""
+    run_test()
     Initialization()
     runCount = 0
     while runCount < 4:
@@ -79,10 +120,11 @@ if __name__ == "__main__":
         cmd1, cmd2 = pts.zhangliang(ok_account, hb_account, ok_data, hb_data)
         # Excute the decision, hanXin(tradeType, price, amount)
         if cmd1 and cmd2:
-            okResult = okp.hanxin(*cmd1)
-            hbResult = hbp.hanxin(*cmd2)
-            logger.info(okResult)
-            logger.info(hbResult)
+            pass
+            #okResult = okp.hanxin(*cmd1)
+            #hbResult = hbp.hanxin(*cmd2)
+            #logger.info(okResult)
+            #logger.info(hbResult)
         else:
             logger.info('no buy or sell this time')
         

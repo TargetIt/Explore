@@ -104,7 +104,7 @@ def crisis_detection():
 # input format:
 #
 # return format:
-#   ((p1_type, p1_price, p1_amount),(p2_type, p2_price, p2_amount))
+#   ((p1_type,p1_amount, p1_price),(p2_type, p2_amount, p2_price))
 #   type: 'buy', 'sell', 'buy_market', 'sell_market'
 # QA:
 #   1 what's the unit of price? 
@@ -124,17 +124,17 @@ def zhangliang(p1_account, p2_account, p1_data, p2_data):
     #check if we have the ability to execute the transaction
     if result is 'buy1':
         if not (p1_account.cny_fr > 0.01 * p1_data[-1] ) :
-            logger.warn(("[P1.!!!] Too few cny. Actual: %d, Need: %d")%(p1_account.cny_fr, 0.01*p1_data[-1]))
+            logger.warn(("[P1.!!!] Too few cny. Actual: %f, Need: %f")%(p1_account.cny_fr, 0.01*p1_data[-1]))
             result = None
         if not (p2_account.btc_fr > 0.01):
-            logger.warn(("[P2.!!!] Too few btc. Actual: %d, Need: 0.01")%(p2_account.btc_fr))
+            logger.warn(("[P2.!!!] Too few btc. Actual: %f, Need: 0.01")%(p2_account.btc_fr))
             result = None
     elif result is 'buy2':
         if not (p2_account.cny_fr > 0.01 * p2_data[-1] ) :
-            logger.warn(("[P1.!!!] Too few cny. Actual: %d, Need: %d")%(p2_account.cny_fr, 0.01*p2_data[-1]))
+            logger.warn(("[P1.!!!] Too few cny. Actual: %f, Need: %f")%(p2_account.cny_fr, 0.01*p2_data[-1]))
             result = None
         if not (p1_account.btc_fr > 0.01):
-            logger.warn(("[P2.!!!] Too few btc. Actual: %d, Need: 0.01")%(p1_account.btc_fr))
+            logger.warn(("[P2.!!!] Too few btc. Actual: %f, Need: 0.01")%(p1_account.btc_fr))
             result = None
     # return the result
     if result is 'buy1':    #buy platform1, sell platform2
