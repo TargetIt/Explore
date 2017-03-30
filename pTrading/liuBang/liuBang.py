@@ -25,6 +25,9 @@ class my_account(object):
         self.rate = rate
         self.state = "even"
         self.BuyPrice = 8000
+        #specil 'none'-pair trading, 'buy'- 计算结果为买此币时只买这一个，另一个不卖
+        # 'sell'-计算为卖此币买另一个时，只卖这个，不买另一个
+        self.special = 'none'
     def order_taget(self, cny, btc):
         self.cny_fr += cny
         self.btc_fr += btc
@@ -117,17 +120,62 @@ def run_liuBang():
         hb_account.xiaoheSync(*hbp.xiaoheSync())
         # Cal oppotunity, zhangLiang
         cmd1, cmd2 = pts.zhangliang(ok_account, hb_account, ok_data, hb_data)
+        
         # Excute the decision, hanXin(tradeType, price, amount)
         if cmd1 and cmd2:
             pass
-            okResult = okp.hanxin(*cmd1)
-            hbResult = hbp.hanxin(*cmd2)
-            logger.info(okResult)
-            logger.info(hbResult)
+            if((hb_account.special == "buy" || hb_acount.specail == "sell") && hb_account.special == cmd2[0]):
+                continueRunHbTrade(cmd2)
+            else: 
+                okResult,okOrderId = okp.hanxin(*cmd1)
+                if(okResult == True ):
+                    if(okp.checkFullSuccess(str(okOrderId))):
+                         continueRunHbTrade(cmd2)
+                    else:
+                         #wait to see if cancel the deal;
+                         time.sleep(15)
+                         if(okp.checkFullSuccess(str(okOrderId))):
+                            continueRunHbTrade(cmd2)
+                         else:
+                             #cancel ok trade
+                             cancelResult = okp.cancelFreezedOrder(str(okOrderId))
+                             if(cancelResult):
+                                 logger.info('ok coin cancel order success')
+                             else:
+                                 logger.info('ok coin cancel order failure')
+                else:
+                    logger.info('ok coin trade encounter unknown problem')
         else:
-            logger.info('>>>>>>>>>>>>>> no buy or sell this time <<<<<<<<<<<<<<<<')
+            logger.info('>>>>>>>>>>>>>> no buy or sell this time <<<<<<<<<<<<<<<<')       
+        time.sleep(15) 
         
-        time.sleep(15)    
+def continueRunHbTrade(cmd2):
+    hbResult, hbOrderId = hbp.hanxin(*cmd2)
+    if(hbResult == True):
+        if(hbp.checkFullSuccess(hbOrderId) == True):
+            hb_account.special = "none"
+            logger.info('ok and huobi trade both succeed')
+        else:
+            #wait to see if cancel the deal;
+            time.sleep(15)
+            if(hbp.checkFullSuccess(hbOrderId)):
+                hb_account.special = "none"
+                logger.info('ok and huobi trade both succeed')
+            else:
+                #cancel huobi order
+                if(hbp.cancelFreezedOrder(hbOrderId)):
+                    logger.info('huobi coin cancel order success')
+                else:
+                    logger.info('huobi coin cancel order failure')
+                #remember just trade one time for nextTime's pair trading
+                #huobiType, huobiAmount, huobiP = *cmd2
+                if(cmd2[0] == 'buy'):
+                    hb_account.special = 'buy'
+                else:
+                    hb_account.special = 'sell'
+    else:
+        logger.info('hb trade encounter unknown problem')
+        
 if __name__ == "__main__":
     """This is main"""
     try:

@@ -39,6 +39,7 @@ def xiaoheSync():
           float(jsonData['frozen_btc_display'])
           )
     
+    #result 结构 {"result":"success","id":4176799006}
 def hanxin(tradeType, amount='', price=''):
     response = None
     if(tradeType == 'buy'):
@@ -51,12 +52,34 @@ def hanxin(tradeType, amount='', price=''):
             response = HuobiService.sell(1,price,amount,None,None,SELL)
         else:
             response = HuobiService.sellMarket(1,amount,None,None,SELL_MARKET)
-#    print(response)
-    return response
+    result = json.loads(response)
+    print(result['result'],result['id'])
+    if(result['result'] == 'success'):
+        return (True, result['id'])
+    else:
+        return (False, '0')
+   
+#   状态　0未成交　1部分成交　2已完成　3已取消    
+def checkFullSuccess(orderId):
+    result = HuobiService.getOrderInfo(1,orderId,ORDER_INFO)
+    result = json.loads(result)
+    if(result['status'] == 2):
+        return True
+    else:
+        return False
+
+def cancelFreezedOrder(orderId):
+    result = HuobiService.cancelOrder(1,orderId,CANCEL_ORDER)
+    result - json.loads(result)
+    if(result['result'] == 'success'):
+        return True
+    else:
+        return False
 
 def test_huobi():
 #    xiaoheGet()
-     xiaoheSync()
+#     xiaoheSync()
+#     hanxin('buy', '0.01', '70')
 #    print ("获取实时行情数据")
 #    print(HuobiService.getRealtimeMarket())
 #    print ("深度数据接口")
@@ -69,8 +92,8 @@ def test_huobi():
 #    print (HuobiService.getAccountInfo(ACCOUNT_INFO))
 #    print ("获取所有正在进行的委托")
 #    print (HuobiService.getOrders(1,GET_ORDERS))
-#    print ("获取订单详情")
-#    print (HuobiService.getOrderInfo(1,68278313,ORDER_INFO))
+    print ("获取订单详情")
+    print (HuobiService.getOrderInfo(1,4176812565,ORDER_INFO))
 #    print ("限价买入")
 #    print (HuobiService.buy(1,"1","0.01",None,None,BUY))
 #    print ("限价卖出")
@@ -83,8 +106,8 @@ def test_huobi():
 #    print (HuobiService.getNewDealOrders(1,NEW_DEAL_ORDERS))
 #    print ("根据trade_id查询order_id")
 #    print (HuobiService.getOrderIdByTradeId(1,274424,ORDER_ID_BY_TRADE_ID))
-#    print ("取消订单接口")
-#    print (HuobiService.cancelOrder(1,68278313,CANCEL_ORDER))   
+    print ("取消订单接口")
+    print (HuobiService.cancelOrder(1,4176812565,CANCEL_ORDER))   
 if __name__ == "__main__":
     test_huobi()
 
