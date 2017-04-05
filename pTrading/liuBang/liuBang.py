@@ -124,7 +124,7 @@ def run_liuBang():
         # Excute the decision, hanXin(tradeType, price, amount)
         if cmd1 and cmd2:
             pass
-            if((hb_account.special == "buy" || hb_acount.specail == "sell") && hb_account.special == cmd2[0]):
+            if((hb_account.special == "buy" or hb_account.special == "sell") and hb_account.special == cmd2[0]):
                 continueRunHbTrade(cmd2)
             else: 
                 okResult,okOrderId = okp.hanxin(*cmd1)
