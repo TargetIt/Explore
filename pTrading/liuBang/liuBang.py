@@ -184,4 +184,6 @@ if __name__ == "__main__":
     except:
         print("There is an exception")
         logger.info('There is an exception')
+        run_test()
+        #run_liuBang()
 

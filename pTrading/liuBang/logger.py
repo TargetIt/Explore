@@ -7,7 +7,8 @@ import logging.handlers
 import time
 
 dateTime = time.time()  
-LOG_FILE = 'logDir\\log' + time.strftime('%Y-%m-%d',time.localtime(time.time())) + '.log'  
+strDate = time.strftime('%Y-%m-%d',time.localtime(time.time()));
+LOG_FILE = 'logDir\\log' + strDate + '.log'  
   
 handler = logging.handlers.RotatingFileHandler(LOG_FILE, maxBytes = 1024*1024, backupCount = 5) # 实例化handler   
 fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'  
@@ -15,7 +16,7 @@ fmt = '%(asctime)s - %(filename)s:%(lineno)s - %(name)s - %(message)s'
 formatter = logging.Formatter(fmt)   # 实例化formatter  
 handler.setFormatter(formatter)      # 为handler添加formatter  
   
-logger = logging.getLogger('tst_new')    # 获取名为tst的logger  
+logger = logging.getLogger(strDate)    # 获取名为tst的logger  
          # 为logger添加handler  
 logger.setLevel(logging.DEBUG)  
 
